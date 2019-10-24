@@ -2,6 +2,7 @@ import smtplib
 import openpyxl
 from string import Template
 import getpass 
+import glob
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -29,7 +30,8 @@ def template_file(filename):
     return Template(template_file_content)
 
 def main():
-    names,emails=excel_to_list("participents.xlsx")
+    filename = glob.glob("*.xlsx")
+    names,emails=excel_to_list(filename)
     template_content=template_file("template.txt")
     s = smtplib.SMTP(host='smtp.gmail.com', port=587)
     s.starttls()
